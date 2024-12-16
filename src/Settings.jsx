@@ -4,10 +4,18 @@ export const Settings = ({ image, setImage, settings, setSettings }) => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     const fileName = file.name;
+
+    if (file.type !== "image/png") {
+      e.target.value = "";
+      alert("We only accept PNG");
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onloadend = () => {
       const img = new Image();
+
       img.onload = () =>
         setImage({
           src: img.src,
@@ -34,7 +42,7 @@ export const Settings = ({ image, setImage, settings, setSettings }) => {
             <input
               type="file"
               onChange={handleImageUpload}
-              className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+              className="file-input file-input-bordered file-input-primary w-full max-w-xs rounded-md"
             />
           </label>
 
